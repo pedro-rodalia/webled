@@ -8,3 +8,4 @@ Web application for turning on pins on Raspberry Pi 3
 - Sass-middleware (css)
 - hbs (views)
 - onoff.js (gpio)
+- react.js (frontend)
