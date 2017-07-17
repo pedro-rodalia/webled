@@ -15,7 +15,7 @@ router.get('/turnOn', function(req, res, next){
     if (err) {
       throw err;
     }
-    res.send(200);
+    res.sendStatus(200);
   });
 });
 
@@ -25,7 +25,7 @@ router.get('/turnOff', function(req, res, next){
     if (err) {
       throw err;
     }
-    res.send(200);
+    res.sendStatus(200);
   });
 });
 

@@ -1,4 +1,4 @@
-function OnReady() {
+function onReady() {
   var $btnOn = $('#on');
   var $btnOff = $('#off');
   $btnOn.on('click', function(e){
