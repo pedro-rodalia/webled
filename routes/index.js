@@ -7,31 +7,35 @@ var pin = 17;
 var outputPin = new Gpio(17, 'out');
 
 // Write functions
-var turnOn = function(pin){
-  pin.write(1, function(err){
+var turnOn = function(){
+  outputPin.write(1, function(err){
     if (err) {throw err;}
   });
 }
 
-var turnOff = function(pin){
-  pin.write(0, function(err){
+var turnOff = function(){
+  outputPin.write(0, function(err){
     if (err) {throw err;}
   });
 }
 
 // pwm function
-var pwm = function(f, dc, pin){
+var pwm = function(f, dc){
   var p = 1/f;
-  turnOn(pin);
-  sleep(p*dc/100);
-  turnOff(pin);
-  sleep(p*(1-dc/100));
+  turnOn();
+  setTimeout(function(){turnOff();}, p*dc*10);
+}
+
+// countdown function
+var countdown = function(time){
+  turnOn();
+  setTimeout(function(){turnOff();}, time*1000);
 }
 
 // Read function
 
-var state = function(pin){
-  return pin.read(function(err){
+var state = function(){
+  return outputPin.read(function(err){
     if (err) {throw err;}
   });
 }
@@ -45,43 +49,31 @@ router.get('/', function(req, res, next) {
 
 // Toggle output pin
 router.get('/action/on', function(req, res, next) {
-  turnOff(pin);
-  turnOn(pin);
+  turnOff();
+  turnOn();
 	res.sendStatus(200);
-  console.log("Pin " + pin " state is: " + state(pin));
+  console.log("Pin " + pin + " state is: " + state());
 });
 
 router.get('/action/off', function(req, res, next){
-  turnOff(pin);
+  turnOff();
   res.sendStatus(200);
-  console.log("Pin " + pin " state is: " + state(pin));
+  console.log("Pin " + pin + " state is: " + state());
 });
 
-router.get('/action/timer/:time', function(req, res, next){
-  turnOff(pin);
-  var time = req.params.time;
-  setTimeout(turnOn(pin), time);
-  res.sendStatus(200);
-  console.log("Pin " + pin " state is: " + state(pin));
-});
-
+// Countdown (turn of after t sec)
 router.get('/action/countdown/:time', function(req, res, next){
-  turnOff(pin);
   var time = req.params.time;
+  countdown(time);
   res.sendStatus(200);
-  turnOn(pin);
-  console.log("Pin " + pin " state is: " + state(pin));
-  sleep(time);
-  turnOff(pin);
-  console.log("Pin " + pin " state is: " + state(pin));
 });
 
+// pwm
 router.get('/action/pwm/:freq/:dc', function(req, res, next){
-  turnOff(pin);
   var freq = req.params.freq;
   var dc = req.params.dc;
-  res.sendStatus(200);
-  setInterval(pwm(freq, dc, pin));
+  setInterval(function(){pwm(freq, dc);}, (1/freq)*1000);
+  res.sendStatus(200);	
 });
 
 module.exports = router;
