@@ -8,11 +8,12 @@ var pin = 17;
 var outputPin = new Gpio(pin, 'out');
 
 // middleware that sets the pin to '0' before any button is pressed
-router.use(function resetOutputPin(req, res, next){
+router.use('/', function(req, res, next){
     outputPin.write(0);
+    console.log('Pin reset...');
 });
 
-// Toggle funcion 
+// Toggle funcion
 router.get('/toggle', function(req, res, next){
     var state = outputPin.read();
     switch (state) {
