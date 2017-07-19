@@ -12,15 +12,15 @@ router.get('/', function(req, res, next) {
 
 // turn on and off the led
 router.get('/toggle', function(req, res, next){
-  if (led.read()){
-    led.write(0, function(err){
+  if (outputPin.read()){
+    outputPin.write(0, function(err){
       if (err) {
         throw err;
       }
       res.sendStatus(200);
     });
   } else {
-    led.write(1, function(err){
+    outputPin.write(1, function(err){
       if (err) {
         throw err;
       }

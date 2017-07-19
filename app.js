@@ -6,7 +6,6 @@ var bodyParser = require('body-parser');
 var sassMiddleware = require('node-sass-middleware');
 
 var index = require('./routes/index');
-var actions = require('./routes/actions');
 
 var app = express();
 
