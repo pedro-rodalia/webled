@@ -1,8 +1,8 @@
 function onReady() {
-  var $btnOn = $('#on');
+  var $btnToggle = $('#toggle');
   var $btnOff = $('#off');
-  $btnOn.on('click', function(e){
-    $.get('/turnOn', function(data){
+  $btnToggle.on('click', function(e){
+    $.get('/toggle', function(data){
       console.log(data);
       $("#state").html('on');
     });
