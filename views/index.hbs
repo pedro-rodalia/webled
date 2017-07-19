@@ -1,17 +1,42 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-12">
-       <h1>{{title}}</h1>
-       <h2>Connect the led to the pin {{pin}}</h2>
-       <h2>The led is currently <span id="state">off</span>.</h2>
-    </div>    
-  </div>
-  <div class="row buttons">
-    <div class="col-lg-6">
-      <button id="on">Turn on</button>
+      <h1>{{title}}</h1>
     </div>
-    <div class="col-lg-6">
-      <button id="off">Turn off</button>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-lg-12">
+      <h3>Currently working with pin <span id="pin"></span></h3>
+    </div>
+  </div>
+  <div class="row">
+    <div id="toggle" class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="card-block">
+          <h4 class="card-title">Toggle</h4>
+          <p class="card-text">Press the button tu turn on and off the led.</p>
+          <button class="btn btn-primary">Toggle</button>
+        </div>
+      </div>
+    </div>
+    <div id="program" class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="card-block">
+          <h4 class="card-title">Countdown</h4>
+          <p class="card-text">Set countdown time.</p>
+          <button class="btn btn-primary">Countdown</button>
+        </div>
+      </div>
+    </div>
+    <div id="pwm" class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="card-block">
+          <h4 class="card-title">Pulse Width Modulation</h4>
+          <p class="card-text">Set the frequency and duty cycle.</p>
+          <button class="btn btn-primary">PWM</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
