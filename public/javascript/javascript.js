@@ -3,8 +3,6 @@ function onReady() {
   var $btnPWM = $('#pwm');
   var $btnTimer = $('#timer');
 
-
-
   $btnToggle.on('click', function(e){
     $.get('/toggle', function(data){
       console.log(data);
