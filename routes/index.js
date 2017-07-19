@@ -6,41 +6,4 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express', pin: pin});
 });
 
-// turn on the led for 'time' seconds
-router.get('/countdown/:time', function(req, res, next){
-  var time = req.params.time;
-  led.write(0, function(err){
-    if(err){throw err;}
-    res.sendStatus(200);
-  });
-  setTimeout(function(){
-    led.write(0, function(err){
-      if(err){throw err;}
-      res.sendStatus(200);
-    });
-  }, time);
-});
-
-// turn on and of the led with freq and duty cycle
-router.get('/pwm/:freq/:dc', function(req, res, next){
-  var freq    = req.params.freq;
-  var period  = 1/freq;
-  var dc      = req.params.dc;
-  var iv = setInterval(function(){
-    led.write(1, function(err){
-      if(err){throw err;}
-    });
-    sleep(period*(dc/100));
-    led.write(0, function(err){
-      if(err){throw err;}
-    });
-    sleep(period*((100-dc)/100));
-  }, period );
-});
-
-
-router.get('/turnOn/:timeTo', function(req, res, next){
-  // Waiting for moment.js
-});
-
 module.exports = router;
