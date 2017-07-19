@@ -1,32 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var Gpio = require('onoff').Gpio;
-
-var pin = 17;
-var outputPin = new Gpio(pin, 'out');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express', pin: pin});
-});
-
-// turn on and off the led
-router.get('/toggle', function(req, res, next){
-  if (outputPin.read()){
-    outputPin.write(0, function(err){
-      if (err) {
-        throw err;
-      }
-      res.sendStatus(200);
-    });
-  } else {
-    outputPin.write(1, function(err){
-      if (err) {
-        throw err;
-      }
-      res.sendStatus(200);
-    });
-  }
 });
 
 // turn on the led for 'time' seconds
