@@ -51,7 +51,7 @@ router.get('/turnOn/:freq/:dc', function(req, res, next){
     led.write(0, function(err){
       if(err){throw err;}
     });
-    sleep(period*((100-dc)/100);
+    sleep(period*((100-dc)/100));
   }, period );
 });
 
