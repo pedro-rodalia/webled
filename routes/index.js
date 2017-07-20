@@ -5,6 +5,7 @@ var Gpio = require('onoff').Gpio;
 // Pin declaration and setting
 var pin = 17;
 var outputPin = new Gpio(17, 'out');
+var intervalSet = 0;
 
 // Write functions
 var turnOn = function(){
@@ -42,6 +43,13 @@ var state = function(){
 
 // ROUTES
 
+router.use(function(req, res, next){
+  if(intervalSet){
+    clearInterval(si_id);
+    intervalSet = 0;
+  }
+});
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express', pin: pin});
@@ -72,8 +80,15 @@ router.get('/action/countdown/:time', function(req, res, next){
 router.get('/action/pwm/:freq/:dc', function(req, res, next){
   var freq = req.params.freq;
   var dc = req.params.dc;
-  setInterval(function(){pwm(freq, dc);}, (1/freq)*1000);
-  res.sendStatus(200);	
+  var si_id =setInterval(function(){pwm(freq, dc);}, (1/freq)*1000);
+  intervalSet = 1;
+  res.sendStatus(200);
+});
+
+router.get('/action/timer/:time', function(req, res, next){
+  var time = req.params.time;
+  turnOn();
+  setTimeout(function(){turnOff();}, time);
 });
 
 module.exports = router;
